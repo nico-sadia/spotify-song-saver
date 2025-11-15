@@ -13,8 +13,8 @@ export const UserBadge = ({ displayName, imageUrl }: UserBadgeProps) => {
                 <Image
                     src={imageUrl}
                     alt="User profile image"
-                    height={64}
-                    width={64}
+                    height={48}
+                    width={48}
                     className="rounded-full"
                 />
             )}

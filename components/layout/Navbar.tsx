@@ -6,6 +6,7 @@ import { UserBadge } from "@/features/user/components/UserBadge";
 import { getUserProfile } from "@/features/user/services/getUserProfile";
 import { UserProfile } from "@/types/spotify";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const Navbar = () => {
@@ -17,13 +18,31 @@ export const Navbar = () => {
         })();
     }, []);
 
+    const links = [
+        { name: "Spotify Song Saver", path: "/" },
+        { name: "Dashboard", path: "/dashboard" },
+    ];
+
     const auth = useAuth();
     const isAuthenticated = auth?.isAuthenticated;
 
+    const currentPath = usePathname();
+
     return (
-        <nav className="bg-neutral-950 absolute inset-x-0 top-0 flex flex-row gap-8 p-4 h-16 items-center">
-            <Link href="/">Spotify Song Saver</Link>
-            <Link href="/dashboard">Dashboard</Link>
+        <nav className="bg-neutral-950 absolute inset-x-0 top-0 flex flex-row gap-6 px-4 h-16 items-center">
+            {links.map((link) => (
+                <Link href={link.path} key={link.name}>
+                    <span
+                        className={
+                            currentPath === link.path
+                                ? "text-spotify-light-green"
+                                : ""
+                        }
+                    >
+                        {link.name}
+                    </span>
+                </Link>
+            ))}
             <div className="ml-auto">
                 {!isAuthenticated && <LoginWithSpotifyButton />}
 
