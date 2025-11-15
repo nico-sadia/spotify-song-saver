@@ -1,11 +1,12 @@
-const spotifyLoginUrl = "http://localhost:3080/auth/login";
+import Button from "@/components/ui/Button";
+import { AUTH_LOGIN_URL } from "@/config/urls";
 
 export const LoginWithSpotifyButton = () => {
     return (
-        <a href={spotifyLoginUrl}>
-            <button className="p-4 bg-green-500 rounded-2xl cursor-pointer hover:bg-green-600">
+        <a href={AUTH_LOGIN_URL}>
+            <Button variant="primary" size="md">
                 Login with Spotify
-            </button>
+            </Button>
         </a>
     );
 };

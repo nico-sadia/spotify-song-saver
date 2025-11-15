@@ -1,21 +1,20 @@
 "use client";
 
-import { createContext, ReactNode, useContext } from "react";
+import { AuthResponse } from "@/types/api";
+import { createContext, ReactNode, useContext, useState } from "react";
 
-const AuthContext = createContext<boolean>(false);
+const AuthContext = createContext<AuthResponse | undefined>(undefined);
 
 export const AuthProvider = ({
     children,
     initialAuth,
 }: {
     children: ReactNode;
-    initialAuth: boolean;
+    initialAuth: AuthResponse;
 }) => {
-    return (
-        <AuthContext.Provider value={initialAuth}>
-            {children}
-        </AuthContext.Provider>
-    );
+    const [auth, setAuth] = useState(initialAuth);
+
+    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);
