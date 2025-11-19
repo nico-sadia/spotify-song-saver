@@ -1,6 +1,8 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { AuthProvider } from "@/features/auth/components/AuthProvider";
 import { getAuthStatus } from "@/features/auth/services/getAuthStatus";
+import { UserProfileProvider } from "@/features/user/components/UserProfileProvider";
+import { getUserProfile } from "@/features/user/services/getUserProfile";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,17 +17,21 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     const auth = await getAuthStatus();
-    console.log("ello" + auth.isAuthenticated);
+    const userProfile = await getUserProfile();
 
     return (
         <html lang="en">
             <AuthProvider initialAuth={auth}>
-                <body
-                    className={`bg-neutral-900 antialiased flex min-h-screen items-center justify-center text-white flex-col overflow-hidden"`}
-                >
-                    <Navbar />
-                    {children}
-                </body>
+                <UserProfileProvider initialUserProfile={userProfile}>
+                    <body
+                        className={`bg-neutral-900 antialiased w-screen h-screen text-white flex-col overflow-hidden"`}
+                    >
+                        <Navbar />
+                        <main className="h-full w-full pt-24 p-12">
+                            {children}
+                        </main>
+                    </body>
+                </UserProfileProvider>
             </AuthProvider>
         </html>
     );

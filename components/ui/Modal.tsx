@@ -19,16 +19,19 @@ export default function Modal({ buttonText, children }: ModalProps) {
                     onClick={() => setOpen(false)}
                 >
                     <div
-                        className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-6 min-w-1/4 space-y-4 flex flex-col"
+                        className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-6 max-w-3/5 max-h-11/12 space-y-4 flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {children}
-                        <Button
-                            variant="secondary"
-                            onClick={() => setOpen(false)}
-                        >
-                            Close
-                        </Button>
+                        <div className="flex justify-center">
+                            <Button
+                                variant="secondary"
+                                size={"md"}
+                                onClick={() => setOpen(false)}
+                            >
+                                Close
+                            </Button>
+                        </div>
                     </div>
                 </div>
             )}

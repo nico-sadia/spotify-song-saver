@@ -8,7 +8,7 @@ type UserBadgeProps = {
 export const UserBadge = ({ displayName, imageUrl }: UserBadgeProps) => {
     return (
         <div className="flex flex-row gap-4 items-center">
-            <h3>{displayName}</h3>
+            <h3 className="font-bold">{displayName}</h3>
             {imageUrl && (
                 <Image
                     src={imageUrl}

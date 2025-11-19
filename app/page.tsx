@@ -2,7 +2,7 @@ import { LoginModal } from "@/features/auth/components/LoginModal";
 
 export default async function Home() {
     return (
-        <main className="flex flex-col justify-center items-center gap-3">
+        <main className="flex flex-col w-full h-full justify-center items-center gap-3">
             <h1 className="text-5xl font-bold text-spotify-green">
                 Spotify Song Saver
             </h1>

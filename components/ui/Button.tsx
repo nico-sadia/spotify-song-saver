@@ -14,6 +14,7 @@ const buttonVariants = cva(
             variant: {
                 primary: "bg-spotify-green text-black hover:bg-green-400",
                 secondary: "bg-white text-black hover:bg-neutral-200",
+                danger: "text-red-400 hover:text-red-500 border-2 border-red-600 hover:border-red-500",
             },
             size: {
                 sm: "px-3 py-1 text-sm",

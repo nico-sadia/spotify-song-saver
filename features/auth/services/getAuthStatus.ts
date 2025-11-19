@@ -11,5 +11,6 @@ export const getAuthStatus = async () => {
         }
     );
     const authResponse: AuthResponse = await res.json();
+    console.log(authResponse);
     return authResponse;
 };
