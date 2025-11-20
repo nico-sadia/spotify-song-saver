@@ -1,9 +1,23 @@
-import { RadioButton } from "@/components/ui/RadioButton";
-import { getUserPlaylists } from "@/features/user/services/getUserPlaylists";
-import Image from "next/image";
+"use client";
 
-export const PlaylistSelector = async () => {
-    const { items, next, total } = await getUserPlaylists();
+import Button from "@/components/ui/Button";
+import { RadioButton } from "@/components/ui/RadioButton";
+import { Playlist } from "@/types/spotify";
+import Image from "next/image";
+import { useState } from "react";
+import { updateSavedPlaylist } from "../services/updateSavedPlaylist";
+
+type PlaylistSelectorProps = {
+    playlists: Playlist[];
+    total: number;
+};
+
+export const PlaylistSelector = ({
+    playlists,
+    total,
+}: PlaylistSelectorProps) => {
+    const [selectedPlaylistId, setselectedPlaylistId] = useState<string>();
+
     return (
         <>
             <div className="flex flex-row items-center">
@@ -14,7 +28,7 @@ export const PlaylistSelector = async () => {
             </div>
             <div className="grid my-scroll overflow-y-scroll overflow-x-hidden grid-cols-1 w-full">
                 <div></div>
-                {items.map((playlist) => (
+                {playlists.map((playlist) => (
                     <div
                         key={playlist.id}
                         className="flex flex-row w-full gap-4 items-center hover:bg-neutral-700 p-1 sm:p-2 rounded-lg"
@@ -24,7 +38,7 @@ export const PlaylistSelector = async () => {
                                 src={playlist.images[0].url}
                                 alt="Playlist image"
                                 fill={true}
-                                className="rounded-lg"
+                                className="rounded-lg object-cover"
                             />
                         </div>
                         <h1 className="truncate text-sm md:text-base flex-1/2">
@@ -35,16 +49,37 @@ export const PlaylistSelector = async () => {
                         </p>
                         <div className="flex-none">
                             <RadioButton
-                                type="radio"
                                 name="playlist"
                                 value={playlist.id}
-                                size={"sm"}
+                                size={"md"}
+                                onClick={() =>
+                                    setselectedPlaylistId(playlist.id)
+                                }
                             />
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="text-spotify-grey">Playlist selected: </div>
+            <div className="text-spotify-grey flex flex-row justify-between">
+                <div>
+                    Playlist selected:{" "}
+                    <span className="text-white font-semibold">
+                        {playlists.map((p) => {
+                            if (p.id === selectedPlaylistId) return p.name;
+                        })}
+                    </span>
+                </div>
+                <Button
+                    variant={"primary"}
+                    size={"md"}
+                    onClick={async () =>
+                        await updateSavedPlaylist(selectedPlaylistId!)
+                    }
+                    disabled={!selectedPlaylistId}
+                >
+                    Confirm
+                </Button>
+            </div>
         </>
     );
 };

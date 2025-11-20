@@ -1,17 +1,31 @@
 "use client";
+import { VariantProps } from "class-variance-authority";
 import { ReactNode, useState } from "react";
-import Button from "./Button";
+import Button, { buttonVariants } from "./Button";
 
-type ModalProps = {
+interface ModalProps extends VariantProps<typeof buttonVariants> {
     buttonText: string;
     children: ReactNode;
-};
+}
 
-export default function Modal({ buttonText, children }: ModalProps) {
+export default function Modal({
+    buttonText,
+    children,
+    variant,
+    size,
+    disabled,
+}: ModalProps) {
     const [open, setOpen] = useState<boolean>(false);
     return (
         <>
-            <Button onClick={() => setOpen(true)}>{buttonText}</Button>
+            <Button
+                variant={variant}
+                size={size}
+                disabled={disabled}
+                onClick={() => setOpen(true)}
+            >
+                {buttonText}
+            </Button>
 
             {open && (
                 <div
@@ -24,11 +38,7 @@ export default function Modal({ buttonText, children }: ModalProps) {
                     >
                         {children}
                         <div className="flex justify-center">
-                            <Button
-                                variant="secondary"
-                                size={"md"}
-                                onClick={() => setOpen(false)}
-                            >
+                            <Button onClick={() => setOpen(false)}>
                                 Close
                             </Button>
                         </div>
