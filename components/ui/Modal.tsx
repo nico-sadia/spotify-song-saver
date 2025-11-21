@@ -33,12 +33,15 @@ export default function Modal({
                     onClick={() => setOpen(false)}
                 >
                     <div
-                        className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-6 max-w-3/5 max-h-11/12 space-y-4 flex flex-col"
+                        className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-6 w-3/5 max-h-11/12 space-y-4 flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {children}
                         <div className="flex justify-center">
-                            <Button onClick={() => setOpen(false)}>
+                            <Button
+                                variant={"secondary"}
+                                onClick={() => setOpen(false)}
+                            >
                                 Close
                             </Button>
                         </div>

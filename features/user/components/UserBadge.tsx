@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
 type UserBadgeProps = {
     displayName: string;
@@ -10,7 +10,7 @@ export const UserBadge = ({ displayName, imageUrl }: UserBadgeProps) => {
         <div className="flex flex-row gap-4 items-center">
             <h3 className="font-bold">{displayName}</h3>
             {imageUrl && (
-                <Image
+                <ImageWithFallback
                     src={imageUrl}
                     alt="User profile image"
                     height={48}

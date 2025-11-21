@@ -3,6 +3,7 @@
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import { Playlist } from "@/types/spotify";
+import { updateSavedPlaylist } from "../services/updateSavedPlaylist";
 import { PlaylistSelector } from "./PlaylistSelector";
 
 type PlaylistActionsProps = {
@@ -20,7 +21,11 @@ export const PlaylistActions = ({ items, total }: PlaylistActionsProps) => {
             >
                 <PlaylistSelector playlists={items} total={total} />
             </Modal>
-            <Button variant={"danger"} size={"md"}>
+            <Button
+                variant={"danger"}
+                size={"md"}
+                onClick={async () => await updateSavedPlaylist(null)}
+            >
                 Remove playlist
             </Button>
         </div>

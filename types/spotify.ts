@@ -1,4 +1,4 @@
-export type Image = {
+export type SpotifyImage = {
     url: string;
     height: number;
     width: number;
@@ -30,7 +30,7 @@ export type Album = {
     total_tracks: number;
     href: string;
     id: string;
-    images: Image[];
+    images: SpotifyImage[];
     name: string;
     release_date: string;
     release_date_precision: "year" | "month" | "day";
@@ -64,7 +64,7 @@ export type Playlist = {
     };
     href: string;
     id: string;
-    images: Image[];
+    images: SpotifyImage[];
     name: string;
     owner: Owner;
     public: boolean;
@@ -96,7 +96,7 @@ export type UserProfile = {
     href: string;
     id: string;
     uri: string;
-    images: Image[];
+    images: SpotifyImage[];
 };
 
 type UserFollowers = {

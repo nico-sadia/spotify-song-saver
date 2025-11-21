@@ -1,9 +1,9 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { RadioButton } from "@/components/ui/RadioButton";
 import { Playlist } from "@/types/spotify";
-import Image from "next/image";
 import { useState } from "react";
 import { updateSavedPlaylist } from "../services/updateSavedPlaylist";
 
@@ -34,11 +34,12 @@ export const PlaylistSelector = ({
                         className="flex flex-row w-full gap-4 items-center hover:bg-neutral-700 p-1 sm:p-2 rounded-lg"
                     >
                         <div className="size-12 relative">
-                            <Image
-                                src={playlist.images[0].url}
+                            <ImageWithFallback
+                                src={playlist.images?.[0]?.url}
                                 alt="Playlist image"
                                 fill={true}
                                 className="rounded-lg object-cover"
+                                unoptimized
                             />
                         </div>
                         <h1 className="truncate text-sm md:text-base flex-1/2">

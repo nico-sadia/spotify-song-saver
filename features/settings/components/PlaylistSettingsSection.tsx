@@ -1,10 +1,9 @@
-import { Link } from "@/components/ui/Link";
 import Modal from "@/components/ui/Modal";
 import { PlaylistActions } from "@/features/playlist/components/PlaylistActions";
+import { PlaylistBadge } from "@/features/playlist/components/PlaylistBadge";
 import { PlaylistSelector } from "@/features/playlist/components/PlaylistSelector";
 import { getSavedPlaylist } from "@/features/playlist/services/getSavedPlaylist";
-import { getUserPlaylists } from "@/features/user/services/getUserPlaylists";
-import Image from "next/image";
+import { getUserPlaylists } from "@/features/playlist/services/getUserPlaylists";
 
 export const PlaylistSettingsSection = async () => {
     const savedPlaylist = await getSavedPlaylist();
@@ -20,38 +19,26 @@ export const PlaylistSettingsSection = async () => {
             </div>
 
             {!savedPlaylist.id && (
-                <Modal buttonText="Change playlist">
-                    <PlaylistSelector playlists={items} total={total} />
-                </Modal>
+                <div className="flex items-center gap-4">
+                    <Modal buttonText="Select playlist" size={"lg"}>
+                        <PlaylistSelector playlists={items} total={total} />
+                    </Modal>
+                    <p className="text-spotify-grey text-sm">
+                        Please select a playlist to start saving songs
+                    </p>
+                </div>
             )}
 
             {savedPlaylist.id && (
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex flex-row gap-4 min-w-0 grow flex-1">
-                        <div className="relative size-32 shrink-0">
-                            <Image
-                                src={images[0].url}
-                                alt="Saved playlist image"
-                                fill={true}
-                                className="rounded-2xl object-cover"
-                            />
-                        </div>
-                        <div className="min-w-0 flex flex-col justify-center">
-                            <Link
-                                href={external_urls.spotify}
-                                variant="inline"
-                                target="_blank"
-                            >
-                                <span className="text-lg truncate block">
-                                    {name}
-                                </span>
-                            </Link>
-                            <p className="text-spotify-grey text-sm">
-                                {tracks.total} songs
-                            </p>
-                        </div>
+                    <div className="flex-1">
+                        <PlaylistBadge
+                            name={name}
+                            images={images}
+                            external_urls={external_urls}
+                        />
                     </div>
-                    <div className="flex-1 flex justify-center items-center">
+                    <div className="flex flex-1 justify-center items-center">
                         <PlaylistActions items={items} total={total} />
                     </div>
                 </div>

@@ -14,6 +14,11 @@ const linkVariants = cva("transition-colors duration-200", {
             default: "text-white hover:bg-neutral-800 p-2 rounded-lg",
             inline: "hover:text-white hover:underline",
         },
+        size: {
+            sm: "text-sm",
+            md: "text-base",
+            lg: "text-lg",
+        },
         active: {
             true: "text-spotify-green bg-neutral-800",
             false: "",
@@ -22,6 +27,7 @@ const linkVariants = cva("transition-colors duration-200", {
     defaultVariants: {
         variant: "default",
         active: false,
+        size: "md",
     },
 });
 
@@ -29,6 +35,7 @@ export const Link = ({
     href,
     variant,
     active,
+    size,
     children,
     ...props
 }: LinkProps) => {
@@ -36,7 +43,7 @@ export const Link = ({
         <NextLink
             href={href}
             {...props}
-            className={cn(linkVariants({ variant, active }))}
+            className={cn(linkVariants({ variant, active, size }))}
         >
             {children}
         </NextLink>
