@@ -90,13 +90,13 @@ export type PlaylistTrack = {
 };
 
 export type UserProfile = {
-    display_name: string;
+    display_name: string | null;
     email: string;
     followers: UserFollowers;
     href: string;
     id: string;
     uri: string;
-    images: SpotifyImage[];
+    images?: SpotifyImage[];
 };
 
 type UserFollowers = {

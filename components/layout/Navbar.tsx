@@ -13,7 +13,7 @@ export const Navbar = async () => {
 
     const auth = await getAuthStatus();
     const isAuthenticated = auth.isAuthenticated;
-    const userProfile = await getUserProfile();
+    const userProfile = isAuthenticated ? await getUserProfile() : null;
 
     return (
         <nav className="bg-neutral-900 absolute inset-x-0 top-0 flex flex-row gap-6 px-4 h-16 items-center">
@@ -27,8 +27,8 @@ export const Navbar = async () => {
 
                 {isAuthenticated && userProfile && (
                     <UserBadge
-                        displayName={userProfile.display_name}
-                        imageUrl={userProfile.images[0].url}
+                        displayName={userProfile.display_name ?? "Spotify user"}
+                        imageUrl={userProfile.images?.[0]?.url ?? null}
                     />
                 )}
             </div>
